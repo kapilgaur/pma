@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,16 @@ import com.jrp.pma.dao.ProjectRepository;
 import com.jrp.pma.dto.ChartData;
 import com.jrp.pma.dto.EmployeeProject;
 import com.jrp.pma.entities.Project;
+import com.jrp.pma.springExample.Car;
 
 @Controller
 public class HomeController {
+	
+	@Value("${version}")
+	private String var;
+	
+	@Autowired
+	Car car;
 	
 	@Autowired
 	ProjectRepository proRepo;
@@ -28,6 +36,8 @@ public class HomeController {
 	
 	@GetMapping("/")
 	public String displayHome(Model model) throws JsonProcessingException {
+		
+		model.addAttribute("versionNumber", var);
 		
 		Map<String, Object> map = new HashMap<>();
 		
